@@ -1,8 +1,8 @@
 # Matters
 
-![test image size](https://github.com/28cmm/tinders/blob/master/ExtraPicture/WechatIMG36.jpeg){:class="img-responsive"}
-![test image size](https://github.com/28cmm/tinders/blob/master/ExtraPicture/WechatIMG38.jpeg){:height="50%" width="50%"}
-![test image size](https://github.com/28cmm/tinders/blob/master/ExtraPicture/WechatIMG37.jpeg){:height="700px" width="400px"}
+![test image size](https://github.com/28cmm/tinders/blob/master/ExtraPicture/WechatIMG36.jpegv=4&s=200)
+![test image size](https://github.com/28cmm/tinders/blob/master/ExtraPicture/WechatIMG38.jpeg?v=4&s=200)
+![test image size](https://github.com/28cmm/tinders/blob/master/ExtraPicture/WechatIMG37.jpegv=4&s=200)
 
 ## Getting Started
 
