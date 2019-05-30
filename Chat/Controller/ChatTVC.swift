@@ -84,7 +84,6 @@ class ChatTVC: UITableViewController {
         hud.show(in: view)
         self.fetchUser { (snapshot) in
             hud.dismiss()
-            //print(snapshot.documents.first?.data())
             snapshot.documents.forEach({ (v) in
                 print(v,"\n")
                 let docId = v.documentID
@@ -101,7 +100,6 @@ class ChatTVC: UITableViewController {
     
     
     fileprivate func fetchUser(completion: @escaping ( QuerySnapshot)->Void){
-       // print(curUser.uid)
         let ref = Firestore.firestore().collection("chat").document("\(curUser.uid!)").collection("Message")
         ref.getDocuments{ (snapshot, err) in
             if err != nil{

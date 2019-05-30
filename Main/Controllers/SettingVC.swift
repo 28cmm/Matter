@@ -261,7 +261,7 @@ class SettingVC: UITableViewController {
         }
         
     }
-    static let defaultMinSeekingAge = 18
+    static let defaultMinSeekingAge = 16
     static let defaultMaxSeekingAge = 50
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SettingCell(style: .default, reuseIdentifier: nil)

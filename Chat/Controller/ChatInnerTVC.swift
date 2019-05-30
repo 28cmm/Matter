@@ -114,12 +114,10 @@ class ChatInnerTVC: UITableViewController {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
-    
     fileprivate func setUpObserver(){
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyvoardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
     @objc fileprivate func handleKeyvoardShow(notificaiton:Notification){
         guard let value = notificaiton.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return
@@ -131,9 +129,6 @@ class ChatInnerTVC: UITableViewController {
         let difference = keyboardFrame.height - stackView.frame.height
         self.view.transform = CGAffineTransform(translationX: 0, y: -difference-8)
     }
-    
-    
-    
     @objc func handleKeyboardHide(notification:Notification){
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.view.transform = .identity

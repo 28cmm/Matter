@@ -39,7 +39,7 @@ struct User: ProducesCardViewModel{
     func toCardViewModel() -> CardViewModel{
         let attributeText = NSMutableAttributedString(string: name ?? "", attributes: [.font: UIFont.systemFont(ofSize: 32, weight: .heavy)])
         let ageString = age != nil ? "\(age!)" : "N\\A"
-        let professionString = (profession == nil) || (profession == "") ? "Not available" : "\(profession!)"
+        let professionString = (profession == nil) || (profession == "") ? "Not available•_•" : "\(profession!)"
         attributeText.append(NSAttributedString(string: " \(ageString)", attributes: [.font: UIFont.systemFont(ofSize: 24, weight: .regular)]))
         attributeText.append(NSAttributedString(string: "\n\(professionString)", attributes: [.font:UIFont.systemFont(ofSize: 20, weight: .regular)]))
         

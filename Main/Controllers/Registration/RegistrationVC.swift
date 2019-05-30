@@ -1,18 +1,82 @@
-//
-//  RegistrationVC.swift
-//  Tinder
-//
-//  Created by Yilei Huang on 2019-05-07.
-//  Copyright © 2019 Joshua Fang. All rights reserved.
-//
+
 import Firebase
 import UIKit
 import JGProgressHUD
+import FBSDKLoginKit
+
+extension RegistrationVC{
+	func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+		if let error = error{
+			hud.textLabel.text = error.localizedDescription
+			hud.show(in: view)
+			hud.dismiss(afterDelay: 3, animated: true)
+			return
+		}
+		let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+		Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
+			if let error = error {
+				self.hud.textLabel.text = error.localizedDescription
+				self.hud.show(in: self.view)
+				self.hud.dismiss(afterDelay: 3, animated: true)
+				return
+			}
+			
+			
+				guard let user = Auth.auth().currentUser else {return}
+			
+				let docData:[String:Any] = [
+					"fullName":user.displayName,
+					"uid":user.uid,
+					"imageUrl1":user.photoURL?.absoluteString,
+					"age": 18,
+					"minSeekingAge": SettingVC.defaultMinSeekingAge,
+					"maxSeekingAge": SettingVC.defaultMaxSeekingAge,
+					"refresh":1 ,
+					"gg": 0
+				]
+			
+
+			Firestore.firestore().collection("users").document(user.uid).setData(docData, completion: { (err) in
+				if let err = err{
+					print(err.localizedDescription)
+				}
+				self.dismiss(animated: true,completion: {
+					self.delegate?.didFinishLoggingIn()
+				})
+			})
+			}
+		
+	
+	}
+	
+	func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+		let firebaseAuth = Auth.auth()
+		do {
+			try firebaseAuth.signOut()
+		} catch let signOutError as NSError {
+			print ("Error signing out: %@", signOutError)
+		}
+		
+	}
+	
+	
+}
 
 
-class RegistrationVC: UIViewController {
+class RegistrationVC: UIViewController, LoginButtonDelegate{
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		setUp()
+		setUpTapGesture()
+		setUpRegistrationObserver()
+		faceBookBtn.delegate = self
+		
+	}
 	
 	var delegate: LoginControllerDelegate?
+	
+	let hud = JGProgressHUD(style: .dark)
 	
     let selectPhotoBtn: UIButton = {
         let button = UIButton(type: .system)
@@ -31,6 +95,7 @@ class RegistrationVC: UIViewController {
 	@objc fileprivate func handleSelect(){
 		let imagePickerController = UIImagePickerController()
 		imagePickerController.delegate = self
+		imagePickerController.allowsEditing = true
 		present(imagePickerController, animated: true)
 	}
     
@@ -84,6 +149,14 @@ class RegistrationVC: UIViewController {
 		return button
 	}()
 	
+	let faceBookBtn:FBLoginButton = {
+		let btn = FBLoginButton()
+		btn.permissions = ["email","public_profile"]
+		btn.backgroundColor = .blue
+		btn.layer.cornerRadius = 25
+		return btn
+	}()
+	
 	let registeringHUD = JGProgressHUD(style: .dark)
 	@objc fileprivate func handleTextChange(textField: UITextField){
 		
@@ -124,14 +197,7 @@ class RegistrationVC: UIViewController {
 		}
 	}
     let gradientLayer = CAGradientLayer()
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        setUp()
-        setUpTapGesture()
-		setUpRegistrationObserver()
-
-    }
+	
 	override func viewWillAppear(_ animated: Bool) {
 		setUpNotificationObservers()
 	}
@@ -172,7 +238,7 @@ class RegistrationVC: UIViewController {
         self.view.transform = CGAffineTransform(translationX: 0, y: -difference-8)
     }
     lazy var verticalStakView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [fullNameTxtField,emailtextField,passwordTxtField,registerBtn])
+        let sv = UIStackView(arrangedSubviews: [fullNameTxtField,emailtextField,passwordTxtField,registerBtn,faceBookBtn])
         sv.axis = .vertical
         sv.spacing = 8
         return sv
@@ -212,7 +278,6 @@ class RegistrationVC: UIViewController {
 		
 		navigationController?.isNavigationBarHidden = true
         gradientLayer.colors = [#colorLiteral(red: 0.9893690944, green: 0.3603764176, blue: 0.3745168447, alpha: 1).cgColor,#colorLiteral(red: 0.9005767703, green: 0.1322652996, blue: 0.4517819881, alpha: 1).cgColor]
-        //gradientLayer.locations = [0,1]
         gradientLayer.frame = view.frame
         view.layer.addSublayer(gradientLayer)
         view.addSubview(overallStackView)

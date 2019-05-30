@@ -179,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				28224041228F92F000E93AA5 /* User Details */,
+				28327690229F18C700AFA0F7 /* Registration */,
 				2822403C228F7B0400E93AA5 /* Login */,
 				28224019227E0E4600E93AA5 /* HomeController.swift */,
 				2822403022829CB700E93AA5 /* Bindable.swift */,
@@ -201,10 +202,6 @@
 			children = (
 				2822403D228F7B0500E93AA5 /* LoginViewModel.swift */,
 				2822403E228F7B0500E93AA5 /* LoginController.swift */,
-				2822402422823C4700E93AA5 /* RegistrationVC.swift */,
-				2822403222835D5300E93AA5 /* Registration+firebase.swift */,
-				2822402C2282959E00E93AA5 /* RegistrationVC+Error.swift */,
-				2822402E2282997F00E93AA5 /* Registration+ImageExtension.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -225,6 +222,17 @@
 				283248552295DE96009F3106 /* ChatUser.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		28327690229F18C700AFA0F7 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				2822402422823C4700E93AA5 /* RegistrationVC.swift */,
+				2822403222835D5300E93AA5 /* Registration+firebase.swift */,
+				2822402C2282959E00E93AA5 /* RegistrationVC+Error.swift */,
+				2822402E2282997F00E93AA5 /* Registration+ImageExtension.swift */,
+			);
+			path = Registration;
 			sourceTree = "<group>";
 		};
 		28412F2C22976CF300ED1A2B /* View */ = {
@@ -363,6 +371,8 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Tinder/Pods-Tinder-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JGProgressHUD/JGProgressHUD.framework",
@@ -381,6 +391,8 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JGProgressHUD.framework",

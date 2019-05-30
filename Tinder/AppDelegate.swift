@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Firebase
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = NAVBACKGROUNDCOLOR
         UINavigationBar.appearance().tintColor = NAVTEXTCOLOR
        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : NAVTEXTCOLOR]
+        
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        
         FirebaseApp.configure()
         let db = Firestore.firestore()
         let settings = db.settings

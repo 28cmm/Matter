@@ -39,12 +39,7 @@ extension HomeController: SettingsControllerDelegate, LoginControllerDelegate, C
             }
         }
     }
-    
-    
-    
     fileprivate func presentMessage(completion:@escaping ([Chat])->Void){
-        
-        
         Firestore.firestore().collection("chat").document(currentUser.uid!).collection("Message").document(chatUid).collection("Info").getDocuments { (snapShot, err) in
             if let err = err{
                 return
@@ -98,8 +93,6 @@ extension HomeController: SettingsControllerDelegate, LoginControllerDelegate, C
 }
 
 class HomeController: UIViewController{
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         topStackView.settingButton.addTarget(self, action: #selector(handleSetting), for: .touchUpInside)
@@ -109,8 +102,7 @@ class HomeController: UIViewController{
         buttonStackView.dislikeButton.addTarget(self, action: #selector(handleDislike), for: .touchUpInside)
         setupLayout()
         fetchCurrentUser()
-        
-        
+
     }
     //MatchView
     var currentUser:User!
@@ -142,18 +134,31 @@ class HomeController: UIViewController{
         hud.show(in: view)
         cardDeckView.subviews.forEach({$0.removeFromSuperview()})
         guard let uid = Auth.auth().currentUser?.uid else{return}
-        Firestore.firestore().collection("users").document(uid).getDocument { (snapshot, err) in
+        let ref = Firestore.firestore().collection("users").document(uid)
+        ref.getDocument { (snapshot, err) in
             if err != nil{
                 print("failed to fetch user," , err)
                 self.hud.dismiss()
                 return
             }
+            self.hud.dismiss()
+            print(snapshot)
             
             guard let dictionary = snapshot?.data() else {return}
             print(dictionary)
             self.user = User(dictionary: dictionary)
-            self.fetchSwipes()
-            self.fetchUserFireStore()
+            if self.user?.refresh == 0{
+                print("please come back tmr")
+            }else if self.user?.refresh == nil{
+                self.user?.refresh = 0
+                self.fetchSwipes()
+                self.fetchUserFireStore()
+            }else{
+                self.user?.refresh = 0
+                self.fetchSwipes()
+                self.fetchUserFireStore()
+            }
+            
         }
         
     }
@@ -180,7 +185,7 @@ class HomeController: UIViewController{
         let query = Firestore.firestore().collection("users").whereField("age", isGreaterThan: minAge).whereField("age", isLessThan: maxAge)
         topCardView = nil
         query.getDocuments { (snapshot, err) in
-            self.hud.dismiss()
+           // self.hud.dismiss()
             if let err = err{
                 print("failed to fetch",err)
                 return

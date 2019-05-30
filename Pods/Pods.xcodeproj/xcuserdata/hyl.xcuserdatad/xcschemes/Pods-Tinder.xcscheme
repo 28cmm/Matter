@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E124753832DB44319A7749DC1ACC6E75"
+               BlueprintIdentifier = "9E844D7D0DDC4AA5E053E9CC9FD128B6"
                BuildableName = "Pods_Tinder.framework"
                BlueprintName = "Pods-Tinder"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E124753832DB44319A7749DC1ACC6E75"
+            BlueprintIdentifier = "9E844D7D0DDC4AA5E053E9CC9FD128B6"
             BuildableName = "Pods_Tinder.framework"
             BlueprintName = "Pods-Tinder"
             ReferencedContainer = "container:Pods.xcodeproj">

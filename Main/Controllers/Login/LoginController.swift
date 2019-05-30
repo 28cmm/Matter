@@ -8,12 +8,28 @@
 
 import UIKit
 import JGProgressHUD
+import Firebase
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 protocol LoginControllerDelegate {
     func didFinishLoggingIn()
 }
 
+//extension LoginController: {
+//
+//}
 class LoginController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupGradientLayer()
+        setupLayout()
+        
+        setupBindables()
+        setUpTapGesture()
+    }
     
     var delegate: LoginControllerDelegate?
     
@@ -64,16 +80,9 @@ class LoginController: UIViewController {
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
         return button
     }()
+
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupGradientLayer()
-        setupLayout()
-        
-        setupBindables()
-        setUpTapGesture()
-    }
+   
     
     fileprivate func setUpTapGesture(){
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
