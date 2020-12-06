@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import JGProgressHUD
 import SDWebImage
+import FBSDKLoginKit
 
 protocol SettingsControllerDelegate {
     func didSaveSettings()
@@ -186,6 +187,7 @@ class SettingVC: UITableViewController {
     
     @objc fileprivate func handleLogout(){
        try? Auth.auth().signOut()
+        LoginManager().logOut()
         dismiss(animated: true)
         
        

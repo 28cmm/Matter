@@ -78,7 +78,8 @@ class RegistrationViewModel {
             "age": 18,
             "minSeekingAge": SettingVC.defaultMinSeekingAge,
             "maxSeekingAge": SettingVC.defaultMaxSeekingAge,
-            "refresh":1
+            "refresh":1,
+            "lastLogin": Timestamp()
         ]
         Firestore.firestore().collection("users").document(uid).setData(docData) { (err) in
             if let err = err{

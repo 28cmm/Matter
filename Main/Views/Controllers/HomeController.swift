@@ -26,10 +26,6 @@ extension HomeController: SettingsControllerDelegate, LoginControllerDelegate, C
             MatchView.isMessage = false
             presentMessage { (chatArray) in
                 self.chatUser(chatUid: self.chatUid, completion: { (usersss) in
-//                    let controller = ChatTVC()
-//                    controller.curUser = self.currentUser
-//                    let navChatControl = UINavigationController(rootViewController: controller)
-//
                     let innerController = ChatInnerTVC()
                     innerController.chatUser = ChatUser(chat: chatArray, user: usersss)
                     let navControl = UINavigationController(rootViewController: innerController)
@@ -83,7 +79,9 @@ extension HomeController: SettingsControllerDelegate, LoginControllerDelegate, C
     
     func didFinishLoggingIn() {
         fetchCurrentUser()
+        
     }
+    
     
     func didSaveSettings() {
         fetchCurrentUser()
@@ -104,6 +102,9 @@ class HomeController: UIViewController{
         fetchCurrentUser()
 
     }
+    
+   
+
     //MatchView
     var currentUser:User!
     var chatUid:String!
@@ -147,19 +148,20 @@ class HomeController: UIViewController{
             guard let dictionary = snapshot?.data() else {return}
             print(dictionary)
             self.user = User(dictionary: dictionary)
-            if self.user?.refresh == 0{
-                print("please come back tmr")
-            }else if self.user?.refresh == nil{
+//            if self.user?.refresh == 0{
+//                print("please come back tmr")
+//            }else if self.user?.refresh == nil{
+//                self.user?.refresh = 0
+//                self.fetchSwipes()
+//                self.fetchUserFireStore()
+//            }else{
                 self.user?.refresh = 0
                 self.fetchSwipes()
                 self.fetchUserFireStore()
-            }else{
-                self.user?.refresh = 0
-                self.fetchSwipes()
-                self.fetchUserFireStore()
-            }
+//            }
             
         }
+        
         
     }
     var swipes = [String:Int]()
@@ -182,7 +184,7 @@ class HomeController: UIViewController{
         let minAge = user?.minSeekingAge ?? 16
         let maxAge = user?.maxSeekingAge ?? 50
         
-        let query = Firestore.firestore().collection("users").whereField("age", isGreaterThan: minAge).whereField("age", isLessThan: maxAge)
+        let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
         topCardView = nil
         query.getDocuments { (snapshot, err) in
            // self.hud.dismiss()
@@ -210,6 +212,7 @@ class HomeController: UIViewController{
             })
         }
     }
+    var lastLogin:Timestamp!
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if Auth.auth().currentUser == nil{
@@ -217,6 +220,24 @@ class HomeController: UIViewController{
             registrationControll.delegate = self
             let navController = UINavigationController(rootViewController: registrationControll)
             present(navController,animated: true)
+        }else{
+//            guard let uid = Auth.auth().currentUser?.uid else {return}
+//            let documentData = ["lastLogin":Timestamp()]
+//            Firestore.firestore().collection("users").document(uid).getDocument { (snapShot, err) in
+//                if let err = err{
+//                    debugPrint("There is err ", err.localizedDescription)
+//                    return
+//                }
+//                self.lastLogin = snapShot?.data()!["lastLogin"] as? Timestamp
+//                Firestore.firestore().collection("users").document(uid).updateData(documentData) { (err) in
+//                    let time = self.lastLogin.dateValue()
+//                    print(time.timeIntervalSince1970)
+//                   // time
+//                     //let a = convertTimestamp(serverTimestamp: Double(self.lastLogin))
+//                    // if Timestamp().dateValue()
+//                }
+//            }
+           
         }
         
     }
@@ -265,6 +286,8 @@ class HomeController: UIViewController{
             }
         }
     }
+    
+    // MARK:- Check and save Chat
     
     fileprivate func checkMatch(cardUID:String){
         Firestore.firestore().collection("swipes").document(cardUID).getDocument { (snapshot, err) in
@@ -379,9 +402,7 @@ class HomeController: UIViewController{
         view.backgroundColor = .white
         let overallStackView = UIStackView(arrangedSubviews:[topStackView,cardDeckView,buttonStackView])
         overallStackView.axis = .vertical
-        
         view.addSubview(overallStackView)
-        
         overallStackView.translatesAutoresizingMaskIntoConstraints = false
         overallStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.safeAreaLayoutGuide.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.safeAreaLayoutGuide.trailingAnchor)
         overallStackView.isLayoutMarginsRelativeArrangement = true

@@ -18,6 +18,16 @@ struct AnchoredConstraints {
     var top, leading, bottom, trailing, width, height: NSLayoutConstraint?
 }
 
+extension UIStackView {
+    func addBackground(color: UIColor) {
+        let subView = UIView(frame: bounds)
+        subView.backgroundColor = color
+        subView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        insertSubview(subView, at: 0)
+    }
+}
+
+
 // Reference Video: https://youtu.be/iqpAP7s3b-8
 extension UIView {
     
@@ -92,6 +102,19 @@ extension UIView {
         if size.height != 0 {
             heightAnchor.constraint(equalToConstant: size.height).isActive = true
         }
+    }
+    
+    open func setupShadow(opacity: Float = 0, radius: CGFloat = 0, offset: CGSize = .zero, color: UIColor = .black) {
+        layer.masksToBounds = false
+        layer.shadowOpacity = opacity
+        layer.shadowRadius = radius
+        layer.shadowOffset = offset
+        layer.shadowColor = color.cgColor
+    }
+    
+    convenience public init(backgroundColor: UIColor = .clear) {
+        self.init(frame: .zero)
+        self.backgroundColor = backgroundColor
     }
     
 }

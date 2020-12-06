@@ -5,6 +5,7 @@ import JGProgressHUD
 import FBSDKLoginKit
 
 extension RegistrationVC{
+	
 	func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
 		if let error = error{
 			hud.textLabel.text = error.localizedDescription
@@ -12,7 +13,8 @@ extension RegistrationVC{
 			hud.dismiss(afterDelay: 3, animated: true)
 			return
 		}
-		let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current!.tokenString)
+		
+		let credential = FacebookAuthProvider.credential(withAccessToken: AccessToken.current?.tokenString ?? "")
 		Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
 			if let error = error {
 				self.hud.textLabel.text = error.localizedDescription
@@ -20,34 +22,49 @@ extension RegistrationVC{
 				self.hud.dismiss(afterDelay: 3, animated: true)
 				return
 			}
-			
-			
-				guard let user = Auth.auth().currentUser else {return}
-			
-				let docData:[String:Any] = [
-					"fullName":user.displayName,
-					"uid":user.uid,
-					"imageUrl1":user.photoURL?.absoluteString,
-					"age": 18,
-					"minSeekingAge": SettingVC.defaultMinSeekingAge,
-					"maxSeekingAge": SettingVC.defaultMaxSeekingAge,
-					"refresh":1 ,
-					"gg": 0
-				]
-			
-
-			Firestore.firestore().collection("users").document(user.uid).setData(docData, completion: { (err) in
+			guard let user = Auth.auth().currentUser else {return}
+			let ref = Firestore.firestore().collection("users").document(user.uid)
+			ref.getDocument(completion: { (snapshot, err) in
 				if let err = err{
-					print(err.localizedDescription)
+					debugPrint("there is err ", err.localizedDescription)
+					return
 				}
-				self.dismiss(animated: true,completion: {
-					self.delegate?.didFinishLoggingIn()
-				})
+				if snapshot?.exists == false{
+					let docData:[String:Any] = [
+						"fullName":user.displayName,
+						"uid":user.uid,
+						"imageUrl1":user.photoURL!.absoluteString + "?type=large",
+						"age": 18,
+						"minSeekingAge": SettingVC.defaultMinSeekingAge,
+						"maxSeekingAge": SettingVC.defaultMaxSeekingAge,
+						"refresh":1 ,
+						"gg": 0
+					]
+					ref.setData(docData, completion: { (err) in
+						if let err = err{
+							print(err.localizedDescription)
+						}
+						self.dismiss(animated: true,completion: {
+							self.delegate?.didFinishLoggingIn()
+						})
+					})
+				}else{
+					self.dismiss(animated: true,completion: {
+						self.delegate?.didFinishLoggingIn()
+					})
+				}
 			})
+		}
+		GraphRequest(graphPath: "/me", parameters: ["fields": "id, name, email"]).start { (connection, result, err) in
+			
+			if err != nil {
+				print("Failed to start graph request:", err ?? "")
+				return
 			}
-		
-	
+			print(result ?? "")
+		}
 	}
+
 	
 	func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
 		let firebaseAuth = Auth.auth()
@@ -58,13 +75,11 @@ extension RegistrationVC{
 		}
 		
 	}
-	
-	
 }
 
 
 class RegistrationVC: UIViewController, LoginButtonDelegate{
-	
+	// MARK:- UI
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setUp()
@@ -120,7 +135,6 @@ class RegistrationVC: UIViewController, LoginButtonDelegate{
     let passwordTxtField: CustomTextField = {
         let textField = CustomTextField(padding: 24)
         textField.placeholder = "Enter password"
-       
         textField.isSecureTextEntry = true
         textField.backgroundColor = .white
 		textField.addTarget(self, action:#selector(handleTextChange), for: .editingChanged)

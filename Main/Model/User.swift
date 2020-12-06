@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 struct User: ProducesCardViewModel{
     var name: String?
@@ -19,6 +20,7 @@ struct User: ProducesCardViewModel{
     let uid: String?
     
     var refresh: Int?
+    var lastLogin: Timestamp?
     
     var minSeekingAge: Int?
     var maxSeekingAge: Int?
@@ -34,6 +36,7 @@ struct User: ProducesCardViewModel{
         self.minSeekingAge = dictionary["minSeekingAge"] as? Int
         self.maxSeekingAge = dictionary["maxSeekingAge"] as? Int
         self.refresh = dictionary["refresh"] as? Int
+        self.lastLogin = dictionary["lastLogin"] as? Timestamp
     }
     
     func toCardViewModel() -> CardViewModel{

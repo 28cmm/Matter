@@ -21,6 +21,7 @@ class TopNavigationStackView: UIStackView {
         settingButton.setImage(#imageLiteral(resourceName: "top_left_profile").withRenderingMode(.alwaysOriginal), for: .normal)
         fireImageView.setImage(#imageLiteral(resourceName: "app_icon").withRenderingMode(.alwaysOriginal), for: .normal)
         messageButton.setImage(#imageLiteral(resourceName: "top_right_messages").withRenderingMode(.alwaysOriginal), for: .normal)
+        
         let subViews = [settingButton,fireImageView,messageButton]
         subViews.forEach { (view) in
             addArrangedSubview(view)

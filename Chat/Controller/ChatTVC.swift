@@ -32,6 +32,7 @@ class ChatTVC: UITableViewController {
         navigationItem.title = "Matches"
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleCancel))
+        self.navigationController?.navigationBar.setupShadow(opacity: 0.8, radius: 4, offset: .init(width: 0, height: 10), color: UIColor.lightGray)
     
     }
     

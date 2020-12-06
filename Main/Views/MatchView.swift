@@ -97,6 +97,8 @@ class MatchView: UIView {
         self.removeFromSuperview()
     }
     
+    
+    
     fileprivate let keepSwipingBtn: UIButton = {
         let button = KeepSwipingBtn(type: .system)
         button.setTitle("Keep Swiping", for: .normal)

@@ -31,6 +31,17 @@ class ChatInnerTVC: UITableViewController {
         button.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         return button
     }()
+    
+    let imageBtn: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(#imageLiteral(resourceName: "picture").withRenderingMode(.alwaysOriginal), for: .normal)
+        btn.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        btn.widthAnchor.constraint(equalToConstant: 20).isActive = true
+       // btn.clipsToBounds = true
+        btn.imageView?.contentMode = .scaleAspectFit
+      //  btn.clipsToBounds = true
+        return btn
+    }()
     let hud = JGProgressHUD(style: .dark)
     @objc fileprivate func handleSend(){
 
@@ -142,6 +153,11 @@ class ChatInnerTVC: UITableViewController {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.backgroundColor = #colorLiteral(red: 0.952085793, green: 0.9528070092, blue: 0.9521974921, alpha: 1)
+        tableView.estimatedRowHeight = 70
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.keyboardDismissMode = .interactive
+        tableView.alwaysBounceVertical = true
+        
        
     }
     func scrollToBottom(){
@@ -150,14 +166,15 @@ class ChatInnerTVC: UITableViewController {
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
-    lazy var stackView = UIStackView(arrangedSubviews: [inputTF,sendBtn])
+    lazy var stackView = UIStackView(arrangedSubviews: [inputTF,imageBtn,sendBtn])
+    
     func setUpLayout(){
-        inputTF.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        
-        stackView.spacing = padding
+        inputTF.widthAnchor.constraint(equalToConstant: 250).isActive = true
         view.addSubview(stackView)
+        stackView.spacing = padding
+        stackView.setupShadow(opacity: 0.1, radius: 8, offset: .init(width: 0, height: -8), color: .lightGray)
         
-        
+//        stackView.addBackground(color: .red)
         stackView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor,padding: .init(top: padding, left: padding, bottom: 0, right: padding))
         stackView.heightAnchor.constraint(equalToConstant: 44).isActive = true
     }
@@ -166,6 +183,8 @@ class ChatInnerTVC: UITableViewController {
         navigationItem.title = chatUser.user.name!
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Matches", style: .plain, target: self, action: #selector(handleBack))
         
+        self.navigationController?.navigationBar.setupShadow(opacity: 0.8, radius: 4, offset: .init(width: 0, height: 10), color: UIColor.lightGray)
+//
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -185,6 +204,7 @@ class ChatInnerTVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = InnerChatCell(style: .default, reuseIdentifier: nil)
         let chat = chatUser.chat[indexPath.row]
+        cell.layoutIfNeeded()
         print("chat uid is \(chat.sendUid) and cur uid is \(curUser?.uid)")
         if chat.sendUid == curUser?.uid{
             print("true")
@@ -204,8 +224,5 @@ class ChatInnerTVC: UITableViewController {
         return chatUser.chat.count
     }
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
-    }
 
 }

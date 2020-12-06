@@ -16,9 +16,6 @@ protocol LoginControllerDelegate {
     func didFinishLoggingIn()
 }
 
-//extension LoginController: {
-//
-//}
 class LoginController: UIViewController {
     
     override func viewDidLoad() {

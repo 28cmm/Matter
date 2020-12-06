@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = NAVTEXTCOLOR
        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : NAVTEXTCOLOR]
         
+
+        
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         

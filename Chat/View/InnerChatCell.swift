@@ -54,7 +54,7 @@ class InnerChatCell: UITableViewCell {
         print("gg")
         addSubview(messageIabel)
         messageIabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        messageIabel.preferredMaxLayoutWidth = 300
+        messageIabel.preferredMaxLayoutWidth = 200
         if isRight == true{
             messageIabel.anchor(top: nil, leading: leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: padding, left: padding, bottom: padding, right: padding * 5))
             messageIabel.textColor = .black
@@ -63,7 +63,7 @@ class InnerChatCell: UITableViewCell {
             
          //  messageIabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7)
         }else{
-            messageIabel.anchor(top: nil, leading: nil, bottom: nil, trailing: trailingAnchor,padding: .init(top: padding, left: padding * 5, bottom: padding, right: padding))
+            messageIabel.anchor(top: topAnchor, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor,padding: .init(top: padding, left: padding * 5, bottom: padding, right: padding))
          //  messageIabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.7)
             messageIabel.textColor = .black
             messageIabel.backgroundColor = #colorLiteral(red: 0.6277691126, green: 0.905141294, blue: 0.3533426523, alpha: 1)

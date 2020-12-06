@@ -7,7 +7,6 @@ class chatCell: UITableViewCell {
     let leftImageView: UIImageView = {
         let imageView = UIImageView(image: #imageLiteral(resourceName: "jane1"))
         imageView.contentMode = .scaleAspectFill
-        //imageView.layer.masksToBounds = false
         imageView.clipsToBounds = true
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = 2

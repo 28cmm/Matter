@@ -54,8 +54,6 @@ class SwipePhotoPVC: UIPageViewController {
             }
             barsStackView.arrangedSubviews.first?.backgroundColor = .white
             setViewControllers([controllers.first!], direction: .forward, animated: true)
-            
-            
         }
         
     }
@@ -108,7 +106,6 @@ class SwipePhotoPVC: UIPageViewController {
                 let previous = max(0, index - 1)
                 let nextController = controllers[previous]
                 setViewControllers([nextController], direction: .forward, animated: false)
-               
                 barsStackView.arrangedSubviews[previous].backgroundColor = .white
             }
             

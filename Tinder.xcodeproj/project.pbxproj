@@ -39,6 +39,7 @@
 		283248532295D82C009F3106 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283248522295D82C009F3106 /* Chat.swift */; };
 		283248562295DE96009F3106 /* ChatUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283248552295DE96009F3106 /* ChatUser.swift */; };
 		2832768F2299A0C300AFA0F7 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2832768E2299A0C300AFA0F7 /* Constant.swift */; };
+		283276B322A7630600AFA0F7 /* CustoumSendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283276B222A7630600AFA0F7 /* CustoumSendView.swift */; };
 		28412F312297759700ED1A2B /* ChatInnerTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28412F302297759700ED1A2B /* ChatInnerTVC.swift */; };
 		28412F33229775E700ED1A2B /* InnerChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28412F32229775E700ED1A2B /* InnerChatCell.swift */; };
 		28588C4822923DF80089FED4 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28588C4722923DF80089FED4 /* MatchView.swift */; };
@@ -79,10 +80,12 @@
 		2822403E228F7B0500E93AA5 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		28224042228F931400E93AA5 /* UserDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailVC.swift; sourceTree = "<group>"; };
 		2822404422908E0100E93AA5 /* SwipePhotoPVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipePhotoPVC.swift; sourceTree = "<group>"; };
+		2826F2B222B36944006F710F /* Tinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tinder.entitlements; sourceTree = "<group>"; };
 		2832484E2294F1F3009F3106 /* ChatTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTVC.swift; sourceTree = "<group>"; };
 		283248522295D82C009F3106 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		283248552295DE96009F3106 /* ChatUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUser.swift; sourceTree = "<group>"; };
 		2832768E2299A0C300AFA0F7 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		283276B222A7630600AFA0F7 /* CustoumSendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustoumSendView.swift; sourceTree = "<group>"; };
 		28412F302297759700ED1A2B /* ChatInnerTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInnerTVC.swift; sourceTree = "<group>"; };
 		28412F32229775E700ED1A2B /* InnerChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerChatCell.swift; sourceTree = "<group>"; };
 		28588C4722923DF80089FED4 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
@@ -130,6 +133,7 @@
 		28223FF4227D4A0100E93AA5 /* Tinder */ = {
 			isa = PBXGroup;
 			children = (
+				2826F2B222B36944006F710F /* Tinder.entitlements */,
 				2822402A22828F2A00E93AA5 /* GoogleService-Info.plist */,
 				28223FF5227D4A0100E93AA5 /* AppDelegate.swift */,
 				28223FF9227D4A0200E93AA5 /* Main.storyboard */,
@@ -161,6 +165,7 @@
 				28588C4722923DF80089FED4 /* MatchView.swift */,
 				28588C49229251C70089FED4 /* SendMessageButton.swift */,
 				28588C4B22925E360089FED4 /* KeepSwipingBtn.swift */,
+				2822401E227E16C800E93AA5 /* Controllers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 			children = (
 				28588C512294C0DE0089FED4 /* chatCell.swift */,
 				28412F32229775E700ED1A2B /* InnerChatCell.swift */,
+				283276B222A7630600AFA0F7 /* CustoumSendView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -259,7 +265,6 @@
 				2822401F227E18CF00E93AA5 /* ViewModels */,
 				2822401B227E0F9400E93AA5 /* Model */,
 				28224010227D526400E93AA5 /* Views */,
-				2822401E227E16C800E93AA5 /* Controllers */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -325,6 +330,11 @@
 				TargetAttributes = {
 					28223FF1227D4A0100E93AA5 = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -445,6 +455,7 @@
 				28224037228A716500E93AA5 /* SettingVC.swift in Sources */,
 				2822402522823C4700E93AA5 /* RegistrationVC.swift in Sources */,
 				2822402D2282959E00E93AA5 /* RegistrationVC+Error.swift in Sources */,
+				283276B322A7630600AFA0F7 /* CustoumSendView.swift in Sources */,
 				283248562295DE96009F3106 /* ChatUser.swift in Sources */,
 				28588C4C22925E360089FED4 /* KeepSwipingBtn.swift in Sources */,
 				28224016227D5CCC00E93AA5 /* CardView.swift in Sources */,
@@ -550,7 +561,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -605,7 +616,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -620,10 +631,11 @@
 			baseConfigurationReference = FBF1BD1DC67A2A8DDD795E00 /* Pods-Tinder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tinder/Tinder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XX8BFQJ7RJ;
 				INFOPLIST_FILE = Tinder/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -640,10 +652,11 @@
 			baseConfigurationReference = 7903C1777F42FC17F140A054 /* Pods-Tinder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tinder/Tinder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XX8BFQJ7RJ;
 				INFOPLIST_FILE = Tinder/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
